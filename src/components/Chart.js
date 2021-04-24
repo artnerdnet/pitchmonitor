@@ -79,41 +79,9 @@ const ApexChart = ({ data, }) => {
       labels: {
         show: false,
       },
-      // labels: {
-      //   show: true,
-      //   align: "right",
-      //   minWidth: 0,
-      //   maxWidth: 160,
-      //   style: {
-      //     colors: [],
-      //     fontSize: "12px",
-      //     fontFamily: "Helvetica, Arial, sans-serif",
-      //     fontWeight: 400,
-      //     cssClass: "apexcharts-yaxis-label",
-      //   },
-      //   offsetX: 0,
-      //   offsetY: 0,
-      //   tickAmount: 10,
-      //   rotate: 0,
-      //   // formatter: function (val, index) {
-      //   //   if (data !== undefined && data.length > 0) {
-      //   //     return data[0].x;
-      //   //     console.log(data, ">>>>> data");
-      //   //     console.log(data, ">>>>> data");
-      //   //     console.log(val, "value>>>>>>");
-      //   //     // return data[data.length].x;
-      //   //   }
-      //   //   // const value = NOTES.map((item) => {
-      //   //   // });
-      //   //   // console.log(value);
-      //   //   // return value;
-      //   // },
-      // },
     },
     xaxis: {
       show: false,
-      //   categories: [0],
-      //   tickAmount: 7, // optional tickAmount value
     },
   };
 
@@ -153,17 +121,11 @@ const ApexChart = ({ data, }) => {
           labels: {
             enabled: false,
             formatter: function (val, index) {
-              if (index?.w !== undefined) {
-                // console.log(
-                //   index.w.config.series[0].data[index.seriesIndex].x,
-                //   "w"
-                // );
+              // if (index?.w !== undefined) {
                 // return index.w.config.series[0].data[index.seriesIndex].x;
-                return val;
-              }
+              // }
 
               return val;
-              // return currentNote;
             },
           },
         },
