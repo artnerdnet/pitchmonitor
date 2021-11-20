@@ -1,17 +1,15 @@
-import { calculateAverageMagnitudeValues, computeMagnitudes, getMaximumMagnitude } from './calculateMagnitudes';
+import { TNotesFrequencies, TMaxMagnitude } from './../types';
 
-export function interpretCorrelations(frequencyAmplitudes: number[], notesFrequencies: number[]) {
-  const magnitudes = computeMagnitudes(frequencyAmplitudes);
-  const maxMagnitude = getMaximumMagnitude(magnitudes);
-  const referenceOfMagnitudeThreshold = 30; // limit of magnitudes to process
-  const averageMagnitudeCalculation = calculateAverageMagnitudeValues(
-    magnitudes,
-    maxMagnitude.strongestMagnitude
-  );
+export function interpretCorrelations(averageMagnitudeCalculation: number, maxMagnitude: TMaxMagnitude, notesFrequencies: TNotesFrequencies): number | void {
+  const magnitudeThreshold = 30; // limit of magnitudes to process
 
-  if (averageMagnitudeCalculation > referenceOfMagnitudeThreshold) {
-    const dominantFrequency = notesFrequencies[maxMagnitude.maxIndexReached];
+  if (averageMagnitudeCalculation > magnitudeThreshold) {
+    return findDominantFrequency(notesFrequencies, maxMagnitude.maxIndexReached)
+  };
 
-    return dominantFrequency;
-  }
+  return null;
 }
+
+export const findDominantFrequency = (notesFrequencies: TNotesFrequencies, maxMagintudeIndex: number): number => (
+  notesFrequencies[maxMagintudeIndex]
+)

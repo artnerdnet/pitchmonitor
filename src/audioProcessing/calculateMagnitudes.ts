@@ -1,21 +1,23 @@
-export const computeMagnitudes = (frequencies: number[]) => {   // Compute the (squared) magnitudes of the complex amplitudes for each note frequency
-  const magnitudes = frequencies.map((frequency) => {
-    return frequency[0] * frequency[0] + frequency[1] * frequency[1];
+import { TMaxMagnitude, TComplexAmplitudes, TMagnitudes, TAverageMagnitude } from './../types';
+
+export const computeMagnitudes = (amplitudes: TComplexAmplitudes): TMagnitudes => {   // Compute the (squared) magnitudes of the complex amplitudes for each note frequency
+  const magnitudes = amplitudes.map((amplitude) => {
+    return amplitude[0] * amplitude[0] + amplitude[1] * amplitude[1];
   });
   return magnitudes;
 };
 
-export const calculateAverageMagnitudeValues = (magnitudes: number[], strongestMagnitude: number) => {
+export const calculateAverageMagnitudeValues = (magnitudes: TMagnitudes, maxMagnitude: number): TAverageMagnitude => {
   const averageMagnitude =
     magnitudes.reduce(function (a, b) {
       return a + b;
     }, 0) / magnitudes.length; // find the average magnitude of all magnitudes
-  const referenceOfMagnitudeOnAverage = strongestMagnitude / averageMagnitude; // calculate the weight of the maxixum magnitude in relation with the average magnitude
+  const referenceOfMagnitudeOnAverage = maxMagnitude / averageMagnitude; // calculate the weight of the maxixum magnitude in relation with the average magnitude
 
   return referenceOfMagnitudeOnAverage;
 };
 
-export const getMaximumMagnitude = (magnitudes: number[]) => {
+export const findMaximumMagnitude = (magnitudes: number[]): TMaxMagnitude => {
   let maxIndexReached = -1;
   let strongestMagnitude = 0;
 

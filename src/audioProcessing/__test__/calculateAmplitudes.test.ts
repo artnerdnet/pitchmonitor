@@ -1,32 +1,12 @@
 import { calculateAmplitudes } from './../calculateAmplitudes';
 
-describe("test utils", () => {
-  test("calculate amplitudes", () => {
-    const arr = new Float32Array(2);
-    const buffer = {
-      duration: 10,
-      length: 10,
-      numberOfChannels: 1,
-      sampleRate: 4400,
-      copyFromChannel: jest.fn(),
-      copyToChannel: jest.fn(),
-      // copyFromChannel: {
-      //   destination: arr,
-      //   channelNumber: 2,
-      // },
-      // copyToChannel: {
-      //   destination: arr,
-      //   channelNumber: 1,
-      // },
-      getChannelData: jest.fn()
-    };
-    const b3ToC4Frequencies = [{ note: 'B3', frequency: 246.94 }, { note: 'C4', frequency: 61.63 }];
-    const sampleRate = 44100;
+test("calculate amplitudes", () => {
+  const buffer = [0.000019336202967679128, -0.0005409265868365765, -0.000595994119066745, -0.00007254595402628183, 0.00044069543946534395, 0.000339826219715178, -0.0001094737890525721, -0.00020759427570737898, 0.00025131809525191784, 0.000722014345228672, 0.00039870201726444066, -0.00044267039629630744];
+  const B3ToC4Frequencies = [246.94, 61.63];
+  const sampleRate = 44100;
 
-    const fixedNumber = calculateAmplitudes(buffer, b3ToC4Frequencies, sampleRate);
-    const result = 1.12
+  const amplitudes = calculateAmplitudes(buffer, B3ToC4Frequencies, sampleRate);
+  const result = [[0.00016652538293978827, 0.00024411852362073768], [0.0002004238055248845, 0.00006165967543617559]]
 
-    expect(fixedNumber).toBe(result);
-  });
-
+  expect(amplitudes).toEqual(result);
 });

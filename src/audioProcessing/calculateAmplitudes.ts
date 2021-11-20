@@ -1,23 +1,19 @@
-import { TNotesFrequencies } from './types';
+import { TNotesFrequencies, TComplexAmplitudes } from '../types';
 // Credits: jonathan.bergknoff.com/journal/making-a-guitar-tuner-html5
 
-export const calculateAmplitudes = (buffer: AudioBuffer, notesFrequencies: TNotesFrequencies, sampleRate: number) => {
+export const calculateAmplitudes = (buffer: number[], notesFrequencies: TNotesFrequencies, sampleRate: number): TComplexAmplitudes => {
   const scaleFactor = (2 * Math.PI) / sampleRate;
-  console.log(buffer, 'buffer')
-  return notesFrequencies.map((note) => {
-    console.log(note, 'note')
-    const { frequency } = note;
+
+  return notesFrequencies.map((frequencyInHz) => {
     const cosineAndSineValues = [0, 0];
 
     for (let t = 0; t < buffer.length; t++) {
-      console.log(buffer[t], 'buffer[t]')
-
       cosineAndSineValues[0] +=
-        buffer[t] * Math.cos(scaleFactor * frequency * t);
+        buffer[t] * Math.cos(scaleFactor * frequencyInHz * t);
       cosineAndSineValues[1] +=
-        buffer[t] * Math.sin(scaleFactor * frequency * t);
+        buffer[t] * Math.sin(scaleFactor * frequencyInHz * t);
     }
-    console.log(cosineAndSineValues, 'cosineAndSineValues')
+
     return cosineAndSineValues;
   });
 }

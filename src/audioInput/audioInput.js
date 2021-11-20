@@ -1,12 +1,13 @@
 import calculateNotesFrequencies from "../frequencyComputations/calculateNotesFrequencies";
 import { calculateAmplitudes } from "../audioProcessing/calculateAmplitudes";
 import interpretCorrelations from '../audioProcessing/interpretCorrelation'
+import { referenceNote } from "../helpers/utils";
 
 export const getAudioInput = async (currentPitchHandler) => {
   const audioContext = new AudioContext();
   const speaker = audioContext.destination;
   const processor = audioContext.createScriptProcessor(4096, 1, 1);
-  const notesFrequencies = calculateNotesFrequencies();
+  const notesFrequencies = calculateNotesFrequencies(referenceNote);
   let recording = true;
 
   processor.addEventListener(
