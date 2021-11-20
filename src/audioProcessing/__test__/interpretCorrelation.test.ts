@@ -1,4 +1,4 @@
-import { interpretCorrelations } from "../interpretCorrelation";
+import { interpretCorrelations } from "..";
 
 describe("audio magnitudes processing", () => {
   const magnitudes = [8.732455673801179e-8, 4.397161739597124e-8];

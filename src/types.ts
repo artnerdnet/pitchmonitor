@@ -1,4 +1,3 @@
-
 export type TFrequency = number;
 
 export type TAmplitudes = number[];

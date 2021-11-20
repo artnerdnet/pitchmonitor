@@ -1,5 +1,5 @@
-import { getAllFrequencies } from './../utils';
-import { fixNumberDecimals, getScalesWithinRange } from '../utils';
+import { getScalesWithinRange } from './..';
+import { fixNumberDecimals, getAllFrequencies } from '..';
 
 describe("test utils", () => {
   test("returns number with two decimals", () => {

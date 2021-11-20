@@ -1,4 +1,4 @@
-import { computeMagnitudes, findMaximumMagnitude, calculateAverageMagnitudeValues } from "../calculateMagnitudes";
+import { computeMagnitudes, findMaximumMagnitude, calculateAverageMagnitudeValues } from "..";
 
 describe("audio magnitudes processing", () => {
   const amplitudes = [[0.00016652538293978827, 0.00024411852362073768], [0.0002004238055248845, 0.00006165967543617559]];
