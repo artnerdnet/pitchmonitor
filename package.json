@@ -1,7 +1,7 @@
 {
   "name": "pitchplease",
   "version": "1.0.0",
-  "description": "Can log \"hello world\" and \"goodbye world\" to the console!",
+  "description": "A package to process sound into pitch",
   "main": "dist/index.js",
   "type": "module",
   "types": "dist/index.d.ts",
