@@ -1,2 +1,2 @@
 export { getScalesWithinRange, fixNumberDecimals, getAllFrequencies } from './utils';
-export { NOTES, referenceNote } from './constants';
+export { NOTES, referenceNote, MAGNITUDE_THRESHOLD } from './constants';

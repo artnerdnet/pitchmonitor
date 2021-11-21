@@ -11,7 +11,7 @@ export const calcEqualTemperamentFreq = (stepsBetweenNotes: number, referenceFre
   return fixNumberDecimals(intervalOfSemitones);
 };
 
-export const calcNotesFreq = (note: TNote = referenceNote): TScaleWithFrequencies[] => { // Match all musical notes with their frequency
+export const calcNotesFreq = (note: TNote = referenceNote): TScaleWithFrequencies[] => {
   const scale = getScalesWithinRange();
   const referenceNotePosition = scale.indexOf(note.name);
   const firstNote = -Math.abs(referenceNotePosition);
