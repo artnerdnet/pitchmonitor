@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.findMaximumMagnitude = exports.calculateAverageMagnitudeValues = exports.computeMagnitudes = exports.findDominantFrequency = exports.interpretCorrelations = exports.calculateAmplitudes = void 0;
+var calculateAmplitudes_1 = require("./calculateAmplitudes");
+Object.defineProperty(exports, "calculateAmplitudes", { enumerable: true, get: function () { return calculateAmplitudes_1.calculateAmplitudes; } });
+var interpretCorrelation_1 = require("./interpretCorrelation");
+Object.defineProperty(exports, "interpretCorrelations", { enumerable: true, get: function () { return interpretCorrelation_1.interpretCorrelations; } });
+Object.defineProperty(exports, "findDominantFrequency", { enumerable: true, get: function () { return interpretCorrelation_1.findDominantFrequency; } });
+var calculateMagnitudes_1 = require("./calculateMagnitudes");
+Object.defineProperty(exports, "computeMagnitudes", { enumerable: true, get: function () { return calculateMagnitudes_1.computeMagnitudes; } });
+Object.defineProperty(exports, "calculateAverageMagnitudeValues", { enumerable: true, get: function () { return calculateMagnitudes_1.calculateAverageMagnitudeValues; } });
+Object.defineProperty(exports, "findMaximumMagnitude", { enumerable: true, get: function () { return calculateMagnitudes_1.findMaximumMagnitude; } });
