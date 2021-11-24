@@ -2,7 +2,7 @@ import { calculateAmplitudes } from './..';
 
 test("calculate amplitudes", () => {
   const buffer = [0.000019336202967679128, -0.0005409265868365765, -0.000595994119066745, -0.00007254595402628183, 0.00044069543946534395, 0.000339826219715178, -0.0001094737890525721, -0.00020759427570737898, 0.00025131809525191784, 0.000722014345228672, 0.00039870201726444066, -0.00044267039629630744];
-  const B3ToC4Frequencies = [246.94, 61.63];
+  const B3ToC4Frequencies = [{ name: 'B3', frequencyInHz: 246.94 }, { name: 'C4', frequencyInHz: 61.63 }];
   const sampleRate = 44100;
 
   const amplitudes = calculateAmplitudes(buffer, B3ToC4Frequencies, sampleRate);

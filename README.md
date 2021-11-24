@@ -51,3 +51,7 @@ Gets the frequencies of all given notes on an array.
 [Standardized audio context](https://github.com/chrisguttandin/standardized-audio-context)
 
 [Notes Frequencies](https://pages.mtu.edu/~suits/notefreqs.html)
+
+[Audio Worklet](https://developers.google.com/web/updates/2017/12/audio-worklet)
+
+[Quick Guide to AudioWorklet](https://dev.to/louisgv/quick-guide-to-audioworklet-30df)

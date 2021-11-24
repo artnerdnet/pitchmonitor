@@ -4,7 +4,8 @@ import { TNotesFrequencies, TComplexAmplitudes } from '../types';
 export const calculateAmplitudes = (buffer: number[], notesFrequencies: TNotesFrequencies, sampleRate: number): TComplexAmplitudes => {
   const scaleFactor = (2 * Math.PI) / sampleRate;
 
-  return notesFrequencies.map((frequencyInHz) => {
+  return notesFrequencies.map((note) => {
+    const { frequencyInHz } = note;
     const cosineAndSineValues = [0, 0];
 
     for (let t = 0; t < buffer.length; t++) {

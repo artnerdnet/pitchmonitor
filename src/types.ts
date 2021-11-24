@@ -15,7 +15,7 @@ export type TNote = {
   frequencyInHz?: number
 }
 
-export type TNotesFrequencies = number[]
+export type TNotesFrequencies = TNote[]
 
 export type TScaleWithFrequencies = TNote[];
 
