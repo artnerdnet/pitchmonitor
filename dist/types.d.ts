@@ -8,7 +8,7 @@ export declare type TNote = {
     name: string;
     frequencyInHz?: number;
 };
-export declare type TNotesFrequencies = number[];
+export declare type TNotesFrequencies = TNote[];
 export declare type TScaleWithFrequencies = TNote[];
 export declare type TMaxMagnitude = {
     strongestMagnitude: number;
