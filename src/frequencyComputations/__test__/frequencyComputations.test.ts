@@ -82,21 +82,21 @@ describe("audio magnitudes processing", () => {
 
   test("returns note when on pitch", () => {
     const pitchFound = findClosestPitch(1662.02, notesWithFrequencies);
-    const expected = { name: 'G#6', frequencyInHz: 1661.22, isFlat: false, isSharp: false, onPitch: true }
+    const expected = { name: 'G#6', frequencyInHz: 1661.22, isFlat: false, isSharp: false, onPitch: true, inputInHz: 1662.02 }
 
     expect(pitchFound).toEqual(expected);
   });
 
   test("returns closest note with sharp indication when note is above the pitch", () => {
     const pitchFound = findClosestPitch(1760.9, notesWithFrequencies);
-    const expected = { name: 'A6', frequencyInHz: 1760, isFlat: false, isSharp: true, onPitch: false }
+    const expected = { name: 'A6', frequencyInHz: 1760, isFlat: false, isSharp: true, onPitch: false, inputInHz: 1760.9 }
 
     expect(pitchFound).toEqual(expected);
   });
 
   test("returns closest note with flat indication when note is below the pitch", () => {
     const pitchFound = findClosestPitch(1759.8, notesWithFrequencies);
-    const expected = { name: 'A6', frequencyInHz: 1760, isFlat: true, isSharp: false, onPitch: false }
+    const expected = { name: 'A6', frequencyInHz: 1760, isFlat: true, isSharp: false, onPitch: false, inputInHz: 1759.8 }
 
     expect(pitchFound).toEqual(expected);
   });

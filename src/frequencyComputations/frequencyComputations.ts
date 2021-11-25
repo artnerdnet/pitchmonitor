@@ -43,7 +43,7 @@ export const findClosestPitch = (initialFreq: number, notes: TNote[]) => {
     const isOnPitch = findDeviation(initialFreq, acceptableDeviationFromPitch, notes[i].frequencyInHz);
 
     if (isOnPitch) {
-      return notes[i];
+      return { ...notes[i], inputInHz: initialFreq };
     }
 
     if (isNumberInBetween(previousNote.frequencyInHz, nextNote.frequencyInHz, initialFreq)) {
@@ -57,6 +57,7 @@ export const findClosestPitch = (initialFreq: number, notes: TNote[]) => {
         isSharp: initialFreq > closestFrequency,
         isFlat: initialFreq < closestFrequency,
         onPitch: false,
+        inputInHz: initialFreq,
       };
     }
   }

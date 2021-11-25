@@ -16,6 +16,7 @@ export type TNote = {
   onPitch?: boolean,
   isFlat?: boolean,
   isSharp?: boolean,
+  inputInHz?: number
 }
 
 export type TNotesFrequencies = TNote[]

@@ -37,16 +37,12 @@ const findClosestPitch = (initialFreq, notes) => {
         const nextNote = notes.length === (i + 1) ? notes[i] : notes[i + 1];
         const isOnPitch = (0, utils_1.findDeviation)(initialFreq, constants_1.acceptableDeviationFromPitch, notes[i].frequencyInHz);
         if (isOnPitch) {
-            return notes[i];
+            return Object.assign(Object.assign({}, notes[i]), { inputInHz: initialFreq });
         }
         if ((0, utils_1.isNumberInBetween)(previousNote.frequencyInHz, nextNote.frequencyInHz, initialFreq)) {
             const closestFrequency = (0, utils_1.findClosestNumber)([previousNote.frequencyInHz, nextNote.frequencyInHz, notes[i].frequencyInHz], initialFreq);
             const closestPitchFound = [nextNote, previousNote, notes[i]].find((note) => note.frequencyInHz === closestFrequency);
-            let updatedNote = Object.assign(Object.assign({}, closestPitchFound), { isFlat: false, isSharp: false, onPitch: false });
-            closestFrequency === previousNote.frequencyInHz ?
-                updatedNote = Object.assign(Object.assign({}, updatedNote), { isFlat: true })
-                : updatedNote = Object.assign(Object.assign({}, updatedNote), { isSharp: true });
-            return updatedNote;
+            return Object.assign(Object.assign({}, closestPitchFound), { isSharp: initialFreq > closestFrequency, isFlat: initialFreq < closestFrequency, onPitch: false, inputInHz: initialFreq });
         }
     }
 };

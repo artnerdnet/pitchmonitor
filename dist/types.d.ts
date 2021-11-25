@@ -10,6 +10,7 @@ export declare type TNote = {
     onPitch?: boolean;
     isFlat?: boolean;
     isSharp?: boolean;
+    inputInHz?: number;
 };
 export declare type TNotesFrequencies = TNote[];
 export declare type TScaleWithFrequencies = TNote[];
