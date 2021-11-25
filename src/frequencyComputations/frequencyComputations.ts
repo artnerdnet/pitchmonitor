@@ -52,24 +52,12 @@ export const findClosestPitch = (initialFreq: number, notes: TNote[]) => {
         note.frequencyInHz === closestFrequency
       );
 
-      let updatedNote = {
+      return {
         ...closestPitchFound,
-        isFlat: false,
-        isSharp: false,
+        isSharp: initialFreq > closestFrequency,
+        isFlat: initialFreq < closestFrequency,
         onPitch: false,
-      }
-
-      closestFrequency === previousNote.frequencyInHz ?
-        updatedNote = {
-          ...updatedNote,
-          isFlat: true
-        }
-        : updatedNote = {
-          ...updatedNote,
-          isSharp: true
-        };
-
-      return updatedNote;
+      };
     }
   }
 }
