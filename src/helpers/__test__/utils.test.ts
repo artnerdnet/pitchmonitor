@@ -1,4 +1,4 @@
-import { isNumberInBetween, findClosestNumber, findDeviation } from './../utils';
+import { isNumberInBetween, findClosestNumber, findDeviation, findPreviousAndNextNote } from './../utils';
 import { getScalesWithinRange } from './..';
 import { fixNumberDecimals, getAllFrequencies } from '..';
 
@@ -74,5 +74,26 @@ describe("test utils", () => {
     const isDeviated = findDeviation(initialValue, deviation, referenceNumber);
 
     expect(isDeviated).toEqual(false);
+  });
+
+  test.only("return previous and next note in array", () => {
+    const initialValue = { name: 'E2', frequencyInHz: 82.41, isFlat: false, isSharp: false, onPitch: true };
+    const arrayOfNotes = [
+      { name: 'D2', frequencyInHz: 73.42, isFlat: false, isSharp: false, onPitch: true },
+      { name: 'D#2', frequencyInHz: 77.78, isFlat: false, isSharp: false, onPitch: true },
+      { name: 'E2', frequencyInHz: 82.41, isFlat: false, isSharp: false, onPitch: true },
+      { name: 'F2', frequencyInHz: 87.31, isFlat: false, isSharp: false, onPitch: true },
+      { name: 'F#2', frequencyInHz: 92.5, isFlat: false, isSharp: false, onPitch: true },
+      { name: 'G2', frequencyInHz: 98, isFlat: false, isSharp: false, onPitch: true },
+      { name: 'G#2', frequencyInHz: 103.83, isFlat: false, isSharp: false, onPitch: true }
+    ];
+    const previousAndNextNotes = findPreviousAndNextNote(arrayOfNotes, initialValue);
+    const expectedResult = {
+      previousNote: { name: 'D#2', frequencyInHz: 77.78, isFlat: false, isSharp: false, onPitch: true },
+      nextNote: { name: 'F2', frequencyInHz: 87.31, isFlat: false, isSharp: false, onPitch: true },
+    }
+      ;
+
+    expect(previousAndNextNotes).toEqual(expectedResult);
   });
 });

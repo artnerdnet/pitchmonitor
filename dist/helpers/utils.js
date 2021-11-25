@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findDeviation = exports.findClosestNumber = exports.isNumberInBetween = exports.getAllFrequencies = exports.fixNumberDecimals = exports.getScalesWithinRange = void 0;
+exports.findPreviousAndNextNote = exports.findDeviation = exports.findClosestNumber = exports.isNumberInBetween = exports.getAllFrequencies = exports.fixNumberDecimals = exports.getScalesWithinRange = void 0;
 const _1 = require(".");
 const getScalesWithinRange = (startNote = "C2", endNote = "B6") => {
     const notesArray = [];
@@ -36,3 +36,23 @@ const findClosestNumber = (values, valueInput) => {
 exports.findClosestNumber = findClosestNumber;
 const findDeviation = (value, deviation, referenceValue) => (value - referenceValue <= deviation || value + referenceValue <= deviation) ? true : false;
 exports.findDeviation = findDeviation;
+const findPreviousAndNextNote = (notes, currentNote) => {
+    const currentNoteIndex = notes.map(note => note.name).indexOf(currentNote.name);
+    const isFirstItem = currentNoteIndex === 0;
+    const isLastItem = currentNoteIndex === (notes.length - 1);
+    if (isFirstItem && !isLastItem) {
+        return {
+            nextNote: notes[currentNoteIndex + 1]
+        };
+    }
+    if (!isFirstItem && isLastItem) {
+        return {
+            previousNote: notes[currentNoteIndex - 1]
+        };
+    }
+    return {
+        previousNote: notes[currentNoteIndex - 1],
+        nextNote: notes[currentNoteIndex + 1]
+    };
+};
+exports.findPreviousAndNextNote = findPreviousAndNextNote;

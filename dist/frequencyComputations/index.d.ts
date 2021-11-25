@@ -1,1 +1,1 @@
-export { calcNotesFreq, calcEqualTemperamentFreq } from './frequencyComputations';
+export { calcNotesFreq, calcEqualTemperamentFreq, findClosestPitch } from './frequencyComputations';

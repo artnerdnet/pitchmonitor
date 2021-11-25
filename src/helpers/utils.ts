@@ -40,3 +40,25 @@ export const findClosestNumber = (values: number[], valueInput: number) => {
 
 export const findDeviation = (value: number, deviation: number, referenceValue: number) => (value - referenceValue <= deviation || value + referenceValue <= deviation) ? true : false
 
+export const findPreviousAndNextNote = (notes: TNote[], currentNote: TNote) => {
+  const currentNoteIndex = notes.map(note => note.name).indexOf(currentNote.name);
+  const isFirstItem = currentNoteIndex === 0
+  const isLastItem = currentNoteIndex === (notes.length - 1)
+
+  if (isFirstItem && !isLastItem) {
+    return {
+      nextNote: notes[currentNoteIndex + 1]
+    }
+  }
+
+  if (!isFirstItem && isLastItem) {
+    return {
+      previousNote: notes[currentNoteIndex - 1]
+    }
+  }
+
+  return {
+    previousNote: notes[currentNoteIndex - 1],
+    nextNote: notes[currentNoteIndex + 1]
+  }
+}

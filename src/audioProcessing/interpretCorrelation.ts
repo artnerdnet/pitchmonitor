@@ -1,4 +1,4 @@
-import { TNotesFrequencies, TMaxMagnitude } from './../types';
+import { TMaxMagnitude } from './../types';
 import { MAGNITUDE_THRESHOLD } from '../helpers';
 
 export function interpretCorrelations(averageMagnitudeCalculation: number, maxMagnitude: TMaxMagnitude, notesFrequencies: number[]): number | void {

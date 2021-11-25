@@ -1,8 +1,6 @@
 import { interpretCorrelations } from "..";
 
 describe("audio magnitudes processing", () => {
-  const magnitudes = [8.732455673801179e-8, 4.397161739597124e-8];
-
   test("return interpreted correlation if higher than average", () => {
     const averageMagnitude = 41.3301919467798082;
     const maxMagnitude = {
