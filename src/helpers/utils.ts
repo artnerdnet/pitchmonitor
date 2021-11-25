@@ -29,13 +29,14 @@ export const isNumberInBetween = (firstValueToCompare: number, secondValueToComp
   return valueInput > min && valueInput < max;
 };
 
-export const findClosestNumber = (firstValueToCompare: number, secondValueToCompare: number, valueInput: number) => {
-  if (valueInput === firstValueToCompare || valueInput === secondValueToCompare) {
-    return valueInput;
-  }
-  const firstValue = Math.abs(valueInput - firstValueToCompare);
-  const secondValue = Math.abs(valueInput - secondValueToCompare);
+export const findClosestNumber = (values: number[], valueInput: number) => {
+  const valueDifference = values.map(number => {
+    return Math.abs(valueInput - number)
+  })
+  const lowerNumberIndex = valueDifference.indexOf(Math.min.apply(Math, valueDifference));
 
-  const closestNumber = Math.min.apply(Math, [firstValue, secondValue]) === firstValue ? firstValueToCompare : secondValueToCompare;
-  return closestNumber;
-}
+  return values[lowerNumberIndex];
+};
+
+export const findDeviation = (value: number, deviation: number, referenceValue: number) => (value - referenceValue <= deviation || value + referenceValue <= deviation) ? true : false
+

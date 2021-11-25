@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findClosestNumber = exports.isNumberInBetween = exports.getAllFrequencies = exports.fixNumberDecimals = exports.getScalesWithinRange = void 0;
+exports.findDeviation = exports.findClosestNumber = exports.isNumberInBetween = exports.getAllFrequencies = exports.fixNumberDecimals = exports.getScalesWithinRange = void 0;
 const _1 = require(".");
 const getScalesWithinRange = (startNote = "C2", endNote = "B6") => {
     const notesArray = [];
@@ -26,13 +26,13 @@ const isNumberInBetween = (firstValueToCompare, secondValueToCompare, valueInput
     return valueInput > min && valueInput < max;
 };
 exports.isNumberInBetween = isNumberInBetween;
-const findClosestNumber = (firstValueToCompare, secondValueToCompare, valueInput) => {
-    if (valueInput === firstValueToCompare || valueInput === secondValueToCompare) {
-        return valueInput;
-    }
-    const firstValue = Math.abs(valueInput - firstValueToCompare);
-    const secondValue = Math.abs(valueInput - secondValueToCompare);
-    const closestNumber = Math.min.apply(Math, [firstValue, secondValue]) === firstValue ? firstValueToCompare : secondValueToCompare;
-    return closestNumber;
+const findClosestNumber = (values, valueInput) => {
+    const valueDifference = values.map(number => {
+        return Math.abs(valueInput - number);
+    });
+    const lowerNumberIndex = valueDifference.indexOf(Math.min.apply(Math, valueDifference));
+    return values[lowerNumberIndex];
 };
 exports.findClosestNumber = findClosestNumber;
+const findDeviation = (value, deviation, referenceValue) => (value - referenceValue <= deviation || value + referenceValue <= deviation) ? true : false;
+exports.findDeviation = findDeviation;

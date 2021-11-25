@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.findClosestPitch = exports.calcNotesFreq = exports.calcEqualTemperamentFreq = void 0;
+const constants_1 = require("./../helpers/constants");
 const utils_1 = require("./../helpers/utils");
 const helpers_1 = require("../helpers");
 // Credits https://www.youtube.com/watch?v=XCVY8eVwfvI&t=671s&ab_channel=MusicandCoding
@@ -34,9 +35,13 @@ const findClosestPitch = (initialFreq, notes) => {
     for (let i = 0; i < notes.length; i++) {
         const previousNote = i === 0 ? notes[i] : notes[i - 1];
         const nextNote = notes.length === (i + 1) ? notes[i] : notes[i + 1];
+        const isOnPitch = (0, utils_1.findDeviation)(initialFreq, constants_1.acceptableDeviationFromPitch, notes[i].frequencyInHz);
+        if (isOnPitch) {
+            return notes[i];
+        }
         if ((0, utils_1.isNumberInBetween)(previousNote.frequencyInHz, nextNote.frequencyInHz, initialFreq)) {
-            const closestFrequency = (0, utils_1.findClosestNumber)(previousNote.frequencyInHz, nextNote.frequencyInHz, initialFreq);
-            const closestPitchFound = [nextNote, previousNote].find((note) => note.frequencyInHz === closestFrequency);
+            const closestFrequency = (0, utils_1.findClosestNumber)([previousNote.frequencyInHz, nextNote.frequencyInHz, notes[i].frequencyInHz], initialFreq);
+            const closestPitchFound = [nextNote, previousNote, notes[i]].find((note) => note.frequencyInHz === closestFrequency);
             let updatedNote = Object.assign(Object.assign({}, closestPitchFound), { isFlat: false, isSharp: false, onPitch: false });
             closestFrequency === previousNote.frequencyInHz ?
                 updatedNote = Object.assign(Object.assign({}, updatedNote), { isFlat: true })

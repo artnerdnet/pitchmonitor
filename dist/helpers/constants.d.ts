@@ -4,3 +4,4 @@ export declare const referenceNote: {
     frequencyInHz: number;
 };
 export declare const MAGNITUDE_THRESHOLD = 30;
+export declare const acceptableDeviationFromPitch = 0.8;

@@ -1,4 +1,5 @@
-import { isNumberInBetween, findClosestNumber } from './../helpers/utils';
+import { acceptableDeviationFromPitch } from './../helpers/constants';
+import { isNumberInBetween, findClosestNumber, findDeviation } from './../helpers/utils';
 import { TScaleWithFrequencies, TNote } from '../types';
 import { fixNumberDecimals, getScalesWithinRange, referenceNote } from '../helpers';
 
@@ -39,11 +40,15 @@ export const findClosestPitch = (initialFreq: number, notes: TNote[]) => {
   for (let i = 0; i < notes.length; i++) {
     const previousNote = i === 0 ? notes[i] : notes[i - 1];
     const nextNote = notes.length === (i + 1) ? notes[i] : notes[i + 1];
+    const isOnPitch = findDeviation(initialFreq, acceptableDeviationFromPitch, notes[i].frequencyInHz);
+
+    if (isOnPitch) {
+      return notes[i];
+    }
 
     if (isNumberInBetween(previousNote.frequencyInHz, nextNote.frequencyInHz, initialFreq)) {
-      const closestFrequency = findClosestNumber(previousNote.frequencyInHz, nextNote.frequencyInHz, initialFreq);
-
-      const closestPitchFound = [nextNote, previousNote].find((note) =>
+      const closestFrequency = findClosestNumber([previousNote.frequencyInHz, nextNote.frequencyInHz, notes[i].frequencyInHz], initialFreq);
+      const closestPitchFound = [nextNote, previousNote, notes[i]].find((note) =>
         note.frequencyInHz === closestFrequency
       );
 

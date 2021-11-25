@@ -1,2 +1,2 @@
-export { getScalesWithinRange, fixNumberDecimals, getAllFrequencies, isNumberInBetween } from './utils';
-export { NOTES, referenceNote, MAGNITUDE_THRESHOLD } from './constants';
+export { getScalesWithinRange, fixNumberDecimals, getAllFrequencies, isNumberInBetween, findDeviation, findClosestNumber } from './utils';
+export { NOTES, referenceNote, MAGNITUDE_THRESHOLD, acceptableDeviationFromPitch } from './constants';

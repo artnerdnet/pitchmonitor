@@ -1,5 +1,5 @@
 import { findClosestPitch } from './../frequencyComputations';
-import { NOTES, referenceNote } from '../../helpers';
+import { referenceNote } from '../../helpers';
 import { calcEqualTemperamentFreq, calcNotesFreq } from '..';
 
 const notesWithFrequencies = [
@@ -80,9 +80,24 @@ describe("audio magnitudes processing", () => {
     expect(frequenciesCalculated).toEqual(notesWithFrequencies);
   });
 
-  test("returns find closest note when not on pitch", () => {
-    const pitchFound = findClosestPitch(1665, notesWithFrequencies);
+  test("returns note when on pitch", () => {
+    const pitchFound = findClosestPitch(1662.02, notesWithFrequencies);
+    const expected = { name: 'G#6', frequencyInHz: 1661.22, isFlat: false, isSharp: false, onPitch: true }
+
+    expect(pitchFound).toEqual(expected);
+  });
+
+  test("returns closest note with sharp indication when note is above the pitch", () => {
+    const pitchFound = findClosestPitch(1760.9, notesWithFrequencies);
     const expected = { name: 'A6', frequencyInHz: 1760, isFlat: false, isSharp: true, onPitch: false }
+
+    expect(pitchFound).toEqual(expected);
+  });
+
+  test("returns closest note with flat indication when note is below the pitch", () => {
+    const pitchFound = findClosestPitch(1759.8, notesWithFrequencies);
+    const expected = { name: 'A6', frequencyInHz: 1760, isFlat: false, isSharp: true, onPitch: false }
+
     expect(pitchFound).toEqual(expected);
   });
 })

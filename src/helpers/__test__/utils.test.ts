@@ -1,4 +1,4 @@
-import { isNumberInBetween, findClosestNumber } from './../utils';
+import { isNumberInBetween, findClosestNumber, findDeviation } from './../utils';
 import { getScalesWithinRange } from './..';
 import { fixNumberDecimals, getAllFrequencies } from '..';
 
@@ -34,21 +34,45 @@ describe("test utils", () => {
   });
 
   test("return closest value to each of the numbers", () => {
-    const foundNumber = findClosestNumber(2, 1, 1.2)
-    const closestNumberExpected = 1;
-    const foundHigherNumber = findClosestNumber(2, 1, 1.8)
-    const closestHigherNumberExpected = 2;
+    const foundLowerNumber = findClosestNumber([1, 2, 3], 1.2);
+    const closestLowerNumberExpected = 1;
+    const foundNumber = findClosestNumber([1, 2, 3], 2.4);
+    const closestNumberExpected = 2;
+    const foundHigherNumber = findClosestNumber([1, 2, 3], 3.1);
+    const closestHigherNumberExpected = 3;
 
+    expect(foundLowerNumber).toEqual(closestLowerNumberExpected);
     expect(foundNumber).toEqual(closestNumberExpected);
     expect(foundHigherNumber).toEqual(closestHigherNumberExpected);
   });
-  test("return same value if number is equal to any of the numbers", () => {
-    const foundNumber = findClosestNumber(2, 1, 1)
-    const closestNumberExpected = 1;
-    const foundHigherNumber = findClosestNumber(2, 1, 2)
-    const closestHigherNumberExpected = 2;
 
+  test("return same value if number is equal to any of the numbers", () => {
+    const foundNumber = findClosestNumber([1, 2, 3], 1)
+    const closestNumberExpected = 1;
+    const foundHigherNumber = findClosestNumber([1, 2, 3], 2)
+    const closestHigherNumberExpected = 2;
+    const foundLowerNumber = findClosestNumber([1, 2, 3], 3);
+    const closestLowerNumberExpected = 3;
     expect(foundNumber).toEqual(closestNumberExpected);
     expect(foundHigherNumber).toEqual(closestHigherNumberExpected);
+    expect(foundLowerNumber).toEqual(closestLowerNumberExpected);
+  });
+
+  test("return true if the reference number is deviated from the given value between the range of the deviation value", () => {
+    const initialValue = 440.34;
+    const referenceNumber = 440;
+    const deviation = 0.8;
+    const isDeviated = findDeviation(initialValue, deviation, referenceNumber);
+
+    expect(isDeviated).toEqual(true);
+  });
+
+  test("return false if the reference number is not deviated from the given value between the range of the deviation value", () => {
+    const initialValue = 440.98;
+    const referenceNumber = 440;
+    const deviation = 0.8;
+    const isDeviated = findDeviation(initialValue, deviation, referenceNumber);
+
+    expect(isDeviated).toEqual(false);
   });
 });
