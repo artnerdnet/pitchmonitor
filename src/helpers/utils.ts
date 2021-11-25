@@ -22,3 +22,20 @@ export const fixNumberDecimals = (num, fixAmount = 2) => {
 export const getAllFrequencies = (notes: TNote[]) => (
   notes.map(note => note.frequencyInHz)
 );
+
+export const isNumberInBetween = (firstValueToCompare: number, secondValueToCompare: number, valueInput: number) => {
+  const min = Math.min.apply(Math, [firstValueToCompare, secondValueToCompare]);
+  const max = Math.max.apply(Math, [firstValueToCompare, secondValueToCompare]);
+  return valueInput > min && valueInput < max;
+};
+
+export const findClosestNumber = (firstValueToCompare: number, secondValueToCompare: number, valueInput: number) => {
+  if (valueInput === firstValueToCompare || valueInput === secondValueToCompare) {
+    return valueInput;
+  }
+  const firstValue = Math.abs(valueInput - firstValueToCompare);
+  const secondValue = Math.abs(valueInput - secondValueToCompare);
+
+  const closestNumber = Math.min.apply(Math, [firstValue, secondValue]) === firstValue ? firstValueToCompare : secondValueToCompare;
+  return closestNumber;
+}

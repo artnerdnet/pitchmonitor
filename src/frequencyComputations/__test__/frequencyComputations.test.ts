@@ -1,5 +1,69 @@
-import { referenceNote } from '../../helpers';
+import { findClosestPitch } from './../frequencyComputations';
+import { NOTES, referenceNote } from '../../helpers';
 import { calcEqualTemperamentFreq, calcNotesFreq } from '..';
+
+const notesWithFrequencies = [
+  { name: 'C2', frequencyInHz: 65.41, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'C#2', frequencyInHz: 69.3, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'D2', frequencyInHz: 73.42, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'D#2', frequencyInHz: 77.78, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'E2', frequencyInHz: 82.41, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'F2', frequencyInHz: 87.31, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'F#2', frequencyInHz: 92.5, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'G2', frequencyInHz: 98, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'G#2', frequencyInHz: 103.83, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'A2', frequencyInHz: 110, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'A#2', frequencyInHz: 116.54, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'B2', frequencyInHz: 123.47, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'C3', frequencyInHz: 130.81, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'C#3', frequencyInHz: 138.59, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'D3', frequencyInHz: 146.83, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'D#3', frequencyInHz: 155.56, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'E3', frequencyInHz: 164.81, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'F3', frequencyInHz: 174.61, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'F#3', frequencyInHz: 185, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'G3', frequencyInHz: 196, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'G#3', frequencyInHz: 207.65, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'A3', frequencyInHz: 220, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'A#3', frequencyInHz: 233.08, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'B3', frequencyInHz: 246.94, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'C4', frequencyInHz: 261.63, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'C#4', frequencyInHz: 277.18, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'D4', frequencyInHz: 293.66, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'D#4', frequencyInHz: 311.13, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'E4', frequencyInHz: 329.63, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'F4', frequencyInHz: 349.23, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'F#4', frequencyInHz: 369.99, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'G4', frequencyInHz: 392, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'G#4', frequencyInHz: 415.3, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'A4', frequencyInHz: 440, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'A#4', frequencyInHz: 466.16, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'B4', frequencyInHz: 493.88, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'C5', frequencyInHz: 523.25, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'C#5', frequencyInHz: 554.37, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'D5', frequencyInHz: 587.33, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'D#5', frequencyInHz: 622.25, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'E5', frequencyInHz: 659.26, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'F5', frequencyInHz: 698.46, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'F#5', frequencyInHz: 739.99, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'G5', frequencyInHz: 783.99, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'G#5', frequencyInHz: 830.61, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'A5', frequencyInHz: 880, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'A#5', frequencyInHz: 932.33, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'B5', frequencyInHz: 987.77, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'C6', frequencyInHz: 1046.5, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'C#6', frequencyInHz: 1108.73, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'D6', frequencyInHz: 1174.66, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'D#6', frequencyInHz: 1244.51, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'E6', frequencyInHz: 1318.51, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'F6', frequencyInHz: 1396.91, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'F#6', frequencyInHz: 1479.98, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'G6', frequencyInHz: 1567.98, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'G#6', frequencyInHz: 1661.22, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'A6', frequencyInHz: 1760, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'A#6', frequencyInHz: 1864.66, isFlat: false, isSharp: false, onPitch: true },
+  { name: 'B6', frequencyInHz: 1975.53, isFlat: false, isSharp: false, onPitch: true },
+]
 
 describe("audio magnitudes processing", () => {
   test("returns equal temperament frequency", () => {
@@ -9,71 +73,17 @@ describe("audio magnitudes processing", () => {
     expect(frequencyCalculated).toEqual(frequencyExpected);
   });
 
+
   test("returns notes names and frequencies from a scale range", () => {
     const frequenciesCalculated = calcNotesFreq(referenceNote);
-    const frequenciesExpected = [
-      { note: 'C2', frequency: 65.41 },
-      { note: 'C#2', frequency: 69.3 },
-      { note: 'D2', frequency: 73.42 },
-      { note: 'D#2', frequency: 77.78 },
-      { note: 'E2', frequency: 82.41 },
-      { note: 'F2', frequency: 87.31 },
-      { note: 'F#2', frequency: 92.5 },
-      { note: 'G2', frequency: 98 },
-      { note: 'G#2', frequency: 103.83 },
-      { note: 'A2', frequency: 110 },
-      { note: 'A#2', frequency: 116.54 },
-      { note: 'B2', frequency: 123.47 },
-      { note: 'C3', frequency: 130.81 },
-      { note: 'C#3', frequency: 138.59 },
-      { note: 'D3', frequency: 146.83 },
-      { note: 'D#3', frequency: 155.56 },
-      { note: 'E3', frequency: 164.81 },
-      { note: 'F3', frequency: 174.61 },
-      { note: 'F#3', frequency: 185 },
-      { note: 'G3', frequency: 196 },
-      { note: 'G#3', frequency: 207.65 },
-      { note: 'A3', frequency: 220 },
-      { note: 'A#3', frequency: 233.08 },
-      { note: 'B3', frequency: 246.94 },
-      { note: 'C4', frequency: 261.63 },
-      { note: 'C#4', frequency: 277.18 },
-      { note: 'D4', frequency: 293.66 },
-      { note: 'D#4', frequency: 311.13 },
-      { note: 'E4', frequency: 329.63 },
-      { note: 'F4', frequency: 349.23 },
-      { note: 'F#4', frequency: 369.99 },
-      { note: 'G4', frequency: 392 },
-      { note: 'G#4', frequency: 415.3 },
-      { note: 'A4', frequency: 440 },
-      { note: 'A#4', frequency: 466.16 },
-      { note: 'B4', frequency: 493.88 },
-      { note: 'C5', frequency: 523.25 },
-      { note: 'C#5', frequency: 554.37 },
-      { note: 'D5', frequency: 587.33 },
-      { note: 'D#5', frequency: 622.25 },
-      { note: 'E5', frequency: 659.26 },
-      { note: 'F5', frequency: 698.46 },
-      { note: 'F#5', frequency: 739.99 },
-      { note: 'G5', frequency: 783.99 },
-      { note: 'G#5', frequency: 830.61 },
-      { note: 'A5', frequency: 880 },
-      { note: 'A#5', frequency: 932.33 },
-      { note: 'B5', frequency: 987.77 },
-      { note: 'C6', frequency: 1046.5 },
-      { note: 'C#6', frequency: 1108.73 },
-      { note: 'D6', frequency: 1174.66 },
-      { note: 'D#6', frequency: 1244.51 },
-      { note: 'E6', frequency: 1318.51 },
-      { note: 'F6', frequency: 1396.91 },
-      { note: 'F#6', frequency: 1479.98 },
-      { note: 'G6', frequency: 1567.98 },
-      { note: 'G#6', frequency: 1661.22 },
-      { note: 'A6', frequency: 1760 },
-      { note: 'A#6', frequency: 1864.66 },
-      { note: 'B6', frequency: 1975.53 }
-    ]
-    expect(frequenciesCalculated).toEqual(frequenciesExpected);
+
+    expect(frequenciesCalculated).toEqual(notesWithFrequencies);
+  });
+
+  test("returns find closest note when not on pitch", () => {
+    const pitchFound = findClosestPitch(1665, notesWithFrequencies);
+    const expected = { name: 'A6', frequencyInHz: 1760, isFlat: false, isSharp: true, onPitch: false }
+    expect(pitchFound).toEqual(expected);
   });
 })
 

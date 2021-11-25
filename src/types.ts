@@ -12,7 +12,10 @@ export type TSemitone = number;
 
 export type TNote = {
   name: string,
-  frequencyInHz?: number
+  frequencyInHz?: number,
+  onPitch?: boolean,
+  isFlat?: boolean,
+  isSharp?: boolean,
 }
 
 export type TNotesFrequencies = TNote[]

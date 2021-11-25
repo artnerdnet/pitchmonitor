@@ -1,3 +1,4 @@
+import { isNumberInBetween, findClosestNumber } from './../utils';
 import { getScalesWithinRange } from './..';
 import { fixNumberDecimals, getAllFrequencies } from '..';
 
@@ -22,5 +23,32 @@ describe("test utils", () => {
     const frequenciesExpected = [246.94, 761.63]
 
     expect(frequencies).toEqual(frequenciesExpected);
+  });
+
+  test("return true if number is between two values", () => {
+    expect(isNumberInBetween(1, 2, 1.5)).toEqual(true);
+  });
+
+  test("return false if number is not between two values", () => {
+    expect(isNumberInBetween(1, 2, 3)).toEqual(false);
+  });
+
+  test("return closest value to each of the numbers", () => {
+    const foundNumber = findClosestNumber(2, 1, 1.2)
+    const closestNumberExpected = 1;
+    const foundHigherNumber = findClosestNumber(2, 1, 1.8)
+    const closestHigherNumberExpected = 2;
+
+    expect(foundNumber).toEqual(closestNumberExpected);
+    expect(foundHigherNumber).toEqual(closestHigherNumberExpected);
+  });
+  test("return same value if number is equal to any of the numbers", () => {
+    const foundNumber = findClosestNumber(2, 1, 1)
+    const closestNumberExpected = 1;
+    const foundHigherNumber = findClosestNumber(2, 1, 2)
+    const closestHigherNumberExpected = 2;
+
+    expect(foundNumber).toEqual(closestNumberExpected);
+    expect(foundHigherNumber).toEqual(closestHigherNumberExpected);
   });
 });
