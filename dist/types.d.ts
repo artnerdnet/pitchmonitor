@@ -7,6 +7,9 @@ export declare type TSemitone = number;
 export declare type TNote = {
     name: string;
     frequencyInHz?: number;
+    onPitch?: boolean;
+    isFlat?: boolean;
+    isSharp?: boolean;
 };
 export declare type TNotesFrequencies = TNote[];
 export declare type TScaleWithFrequencies = TNote[];
